@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ランキング</title>
+    <!-- Google Fonts で高級感あるフォント -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- TailwindCSS CDN を利用 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 min-h-screen font-roboto text-gray-800">
+
+<div class="container mx-auto p-6">
+
+    <h1 class="text-4xl font-bold text-white text-center mb-6 drop-shadow-lg">🏆 ランキング</h1>
+    <p class="text-xl text-white text-center mb-8">ようこそ、<span th:text="${currentUser}" class="font-semibold"></span> さん！</p>
+
+    <!-- ボタンエリア -->
+    <div class="flex justify-center gap-4 mb-10">
+        <form th:action="@{/game/restart}" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-lg shadow-lg transition duration-300 transform hover:-translate-y-1 hover:scale-105">
+                🎮 ゲーム再戦
+            </button>
+        </form>
+
+        <form th:action="@{/logout}" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-lg shadow-lg transition duration-300 transform hover:-translate-y-1 hover:scale-105">
+                🔒 ログアウト
+            </button>
+        </form>
+    </div>
+
+    <!-- ランキングテーブル -->
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white rounded-xl shadow-lg overflow-hidden">
+            <thead class="bg-gradient-to-r from-purple-500 to-pink-500 text-white text-lg">
+                <tr>
+                    <th class="py-3 px-6">順位</th>
+                    <th class="py-3 px-6">ユーザー名</th>
+                    <th class="py-3 px-6">スコア</th>
+                    <th class="py-3 px-6">日時</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="score, stat : ${topScores}" class="text-center border-b hover:bg-gray-100 transition">
+                    <td th:text="${stat.index + 1}" class="py-3 px-6 font-semibold"></td>
+                    <td th:text="${score.username}" class="py-3 px-6"></td>
+                    <td th:text="${score.score}" class="py-3 px-6"></td>
+                    <td th:text="${#temporals.format(score.playedAt, 'yyyy-MM-dd HH:mm')}" class="py-3 px-6"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

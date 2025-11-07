@@ -1,0 +1,168 @@
+body {
+  font-family: Arial, sans-serif; 
+  text-align: center; 
+  margin: 20px; 
+  background: url('/images/mokume.gif') no-repeat center top;
+  background-size: 100% auto;
+}
+
+#boardWrapper {
+  display: inline-block;
+  background: black;
+  padding: 4px;
+  border-radius: 8px;
+  margin: 40px auto;
+}
+
+#board {
+  display: grid;
+  grid-template-columns: repeat(8, 70px);
+  grid-template-rows: repeat(8, 70px);
+  gap: 4px;
+  background: transparent;
+}
+
+.cell {
+  width: 70px; height: 70px;
+  background: green;
+  border: 1px solid #000;
+  display: flex; justify-content: center; align-items: center;
+  cursor: pointer;
+}
+
+.cell.valid::after {
+  content: '';
+  position: absolute;
+  width: 18px; height: 18px;
+  background: yellow;
+  border-radius: 50%;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.disk {
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.disk.black { background: black; }
+.disk.white { background: white; }
+
+.player-ui {
+  position: absolute;
+  background: rgba(255,255,255,0.95);
+  padding: 20px 28px;
+  border-radius: 16px;
+  border: 3px solid #333;
+  font-weight: bold;
+  font-size: 22px;
+  box-shadow: 6px 6px 12px rgba(0,0,0,0.5);
+}
+
+#playerUI { left:40px; bottom:40px; background: rgba(200,230,255,0.9); border-color:#0077cc; }
+#aiUI { right:40px; top:40px; background: rgba(255,200,200,0.9); border-color:#cc0000; }
+
+.current-turn { border-color: gold !important; }
+
+.thinking { animation: pulse 1s infinite alternate; }
+@keyframes pulse {
+  0% { transform: scale(1); background-color: rgba(255,255,255,0.9); }
+  100% { transform: scale(1.1); background-color: rgba(255,255,150,0.9); }
+}
+
+#info { margin-top: 15px; font-size: 22px; font-weight: bold; }
+#replayBtn, #resetBtn { margin-top: 15px; padding: 14px 22px; font-size: 20px; cursor: pointer; }
+
+/* 黒背景ラッパー */
+#boardWrapper {
+  display: inline-block;
+  background: black;      /* ボードの後ろだけ黒 */
+  padding: 4px;           /* セル間の隙間 */
+  border-radius: 8px;
+  margin: 40px auto;      /* 上下余白・中央寄せ */
+}
+
+/* ボード */
+#board {
+  display: grid;
+  grid-template-columns: repeat(8, 70px);
+  grid-template-rows: repeat(8, 70px);
+  gap: 4px;
+  margin: 0;
+  justify-content: center;
+  position: relative;
+  background: transparent; /* ラッパーの黒を透過 */
+}
+
+.cell {
+  width: 70px; height: 70px; 
+  background: green; 
+  border: 1px solid #000; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  position: relative; 
+  cursor: pointer;
+}
+
+.cell.valid::after {
+  content: '';
+  position: absolute;
+  width: 18px; height: 18px;
+  background: yellow;
+  border-radius: 50%;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.disk {
+  width: 60px; height: 60px;
+  border-radius: 50%; 
+  pointer-events: none; 
+}
+
+.disk.black { background: black; }
+.disk.white { background: white; }
+
+/* UI枠拡大 */
+.player-ui {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 20px 28px;
+  border-radius: 16px;
+  border: 3px solid #333;
+  font-weight: bold;
+  font-size: 22px;
+  box-shadow: 6px 6px 12px rgba(0,0,0,0.5);
+  z-index: 2000;
+  transition: transform 0.3s, border-color 0.3s;
+}
+
+#playerUI { left: 40px; bottom: 40px; background: rgba(200,230,255,0.9); border-color: #0077cc; }
+#aiUI { right: 40px; top: 40px; background: rgba(255,200,200,0.9); border-color: #cc0000; }
+
+.current-turn { border-color: gold !important; }
+
+.thinking { animation: pulse 1s infinite alternate; }
+@keyframes pulse {
+  0% { transform: scale(1); background-color: rgba(255,255,255,0.9); }
+  100% { transform: scale(1.1); background-color: rgba(255,255,150,0.9); }
+}
+
+#info { margin-top: 15px; font-size: 22px; font-weight: bold; }
+#replayBtn, #resetBtn { margin-top: 15px; padding: 14px 22px; font-size: 20px; cursor: pointer; }
+
+#rankingLink a {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+#rankingLink a:hover {
+  background-color: #45a049;
+}
